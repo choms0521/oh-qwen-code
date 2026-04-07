@@ -1,0 +1,13 @@
+---
+name: omq-orchestrator
+version: 0.1.0
+description: Oh My Qwen - Multi-agent orchestration for Qwen Code
+mcpServers:
+  omq-tools:
+    command: node
+    args:
+      - "${extensionPath}/dist/mcp-server/index.js"
+    cwd: "${extensionPath}"
+contextFileName: QWEN.md
+excludeTools: []
+---

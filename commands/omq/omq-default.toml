@@ -1,0 +1,4 @@
+name = "omq-default"
+description = "Configure OMQ for the current project"
+command = "node ${extensionPath}/dist/cli/omq-default.js"
+allowed-tools = ["read_file", "write_file", "edit", "run_shell_command"]

@@ -1,0 +1,4 @@
+name = "omq-install"
+description = "Install or update Oh My Qwen plugins and hooks"
+command = "node ${extensionPath}/dist/cli/omq-install.js"
+allowed-tools = ["read_file", "write_file", "run_shell_command"]

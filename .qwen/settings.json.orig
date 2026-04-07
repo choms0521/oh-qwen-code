@@ -1,0 +1,110 @@
+{
+  "disableAllHooks": false,
+  "hooks": {
+    "UserPromptSubmit": [
+      {
+        "matcher": ".*",
+        "sequential": false,
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node ${extensionPath}/dist/hooks/keyword-detector.js",
+            "name": "omq-keyword-detector",
+            "description": "Detect magic keywords for skill activation",
+            "timeout": 5000
+          }
+        ]
+      }
+    ],
+    "SessionStart": [
+      {
+        "matcher": ".*",
+        "sequential": false,
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node ${extensionPath}/dist/hooks/session-start.js",
+            "name": "omq-session-init",
+            "description": "Initialize OMQ state and load project memory",
+            "timeout": 10000
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": ".*",
+        "sequential": false,
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node ${extensionPath}/dist/hooks/pre-tool-enforcer.js",
+            "name": "omq-tool-enforcer",
+            "description": "Validate tool permissions and inputs",
+            "timeout": 5000
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": ".*",
+        "sequential": false,
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node ${extensionPath}/dist/hooks/post-tool-verifier.js",
+            "name": "omq-tool-verifier",
+            "description": "Verify tool results and update project memory",
+            "timeout": 5000
+          }
+        ]
+      }
+    ],
+    "SubagentStart": [
+      {
+        "matcher": ".*",
+        "sequential": false,
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node ${extensionPath}/dist/hooks/subagent-start.js",
+            "name": "omq-subagent-tracker",
+            "description": "Track subagent execution for monitoring",
+            "timeout": 5000
+          }
+        ]
+      }
+    ],
+    "SubagentStop": [
+      {
+        "matcher": ".*",
+        "sequential": false,
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node ${extensionPath}/dist/hooks/subagent-stop.js",
+            "name": "omq-subagent-verifier",
+            "description": "Verify subagent deliverables on completion",
+            "timeout": 10000
+          }
+        ]
+      }
+    ],
+    "SessionEnd": [
+      {
+        "matcher": ".*",
+        "sequential": false,
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node ${extensionPath}/dist/hooks/session-end.js",
+            "name": "omq-session-cleanup",
+            "description": "Clean up OMQ state and save session data",
+            "timeout": 30000
+          }
+        ]
+      }
+    ]
+  }
+}

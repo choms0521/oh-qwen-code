@@ -1,0 +1,16 @@
+{
+  "name": "oh-my-qwen",
+  "version": "0.1.0",
+  "description": "Multi-agent orchestration framework for Qwen Code. Provides 19 specialized agents, lifecycle hooks, MCP tools, and team orchestration.",
+  "mcpServers": {
+    "omq-tools": {
+      "command": "node",
+      "args": [
+        "${extensionPath}/dist/mcp-server/index.js"
+      ],
+      "cwd": "${extensionPath}"
+    }
+  },
+  "contextFileName": "QWEN.md",
+  "excludeTools": []
+}

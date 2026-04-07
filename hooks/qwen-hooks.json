@@ -1,0 +1,81 @@
+{
+  "description": "OMQ (Oh My Qwen) orchestration hooks for Qwen Code",
+  "version": "0.1.0",
+  "hooks": {
+    "PromptSubmit": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"$QWEN_PLUGIN_ROOT\"/scripts/keyword-detector.mjs",
+            "timeout": 5
+          },
+          {
+            "type": "command",
+            "command": "node \"$QWEN_PLUGIN_ROOT\"/scripts/skill-injector.mjs",
+            "timeout": 3
+          }
+        ]
+      }
+    ],
+    "SessionStart": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"$QWEN_PLUGIN_ROOT\"/scripts/session-start.mjs",
+            "timeout": 5
+          },
+          {
+            "type": "command",
+            "command": "node \"$QWEN_PLUGIN_ROOT\"/scripts/project-memory-session.mjs",
+            "timeout": 5
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"$QWEN_PLUGIN_ROOT\"/scripts/pre-tool-enforcer.mjs",
+            "timeout": 3
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"$QWEN_PLUGIN_ROOT\"/scripts/post-tool-verifier.mjs",
+            "timeout": 3
+          },
+          {
+            "type": "command",
+            "command": "node \"$QWEN_PLUGIN_ROOT\"/scripts/project-memory-posttool.mjs",
+            "timeout": 3
+          }
+        ]
+      }
+    ],
+    "SessionEnd": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"$QWEN_PLUGIN_ROOT\"/scripts/session-end.mjs",
+            "timeout": 30
+          }
+        ]
+      }
+    ]
+  }
+}
