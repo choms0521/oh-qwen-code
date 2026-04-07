@@ -19,20 +19,21 @@ const input = await new Promise((resolve) => {
 });
 
 const toolName = input?.tool_name || '';
-const toolInput = input?.tool_input || {};
+const toolInput = input?.tool_input || input?.toolInput || {};
 
 // Dangerous patterns to block
 const dangerousPatterns = [
-  { regex: /\brm\s+-rf\s+\/\b/, reason: 'Cannot delete root directory' },
+  { regex: /rm\s+(-rf\s+)?\/\b|rm\s+-rf\b/, reason: 'Cannot delete root directory' },
   { regex: /\bmkfs\b/, reason: 'Cannot format filesystem' },
   { regex: /\bdd\s+if=\/dev\b/, reason: 'Cannot write to raw devices' },
   { regex: /\bsudo\s+rm\b/, reason: 'Cannot use sudo with rm' },
 ];
 
 // Check tool input for dangerous patterns
-if (toolInput?.command) {
+const commandToCheck = toolInput?.command || toolInput?.args?.join(' ') || '';
+if (commandToCheck) {
   for (const { regex, reason } of dangerousPatterns) {
-    if (regex.test(toolInput.command)) {
+    if (regex.test(commandToCheck)) {
       console.log(JSON.stringify({
         decision: 'deny',
         reason,
